@@ -7,6 +7,8 @@
 
 #Ignore Sudi's weird python files
 ._*
+*._*
+*._
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
