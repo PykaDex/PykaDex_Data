@@ -1,1 +1,1 @@
-data_dir = "../../GenX"
+data_dir = "Data/Images/GenX"
