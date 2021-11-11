@@ -4,6 +4,7 @@ import numpy as np
 from tqdm import tqdm
 import pathlib
 import shutil
+from config import *
 
 REBUILD_DATA = True
 
@@ -11,8 +12,7 @@ REBUILD_DATA = True
 class Pokemon():
 
     IMG_SIZE = 80
-    data_dir = "../../GenX"
-
+    
     data_save_name = "Pokemon_color2_80_test.npy"
     model_directory = "Compiled_Data"
     save_path = model_directory + "/" + data_save_name
