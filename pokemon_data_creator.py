@@ -9,7 +9,7 @@ REBUILD_DATA = True
 
 
 class Pokemon():
-    print("Hello")
+
     IMG_SIZE = 80
     data_dir = "../../GenX"
 
