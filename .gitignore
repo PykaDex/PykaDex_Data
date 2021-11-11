@@ -1,9 +1,9 @@
 # ignore raw data images
 
-/Data/Images/**/*jpeg
-/Data/Images/**/*jpg
-/Data/Images/**/*png
-/Data/Images/**/*tiff
+**/Data/Images/*jpeg
+**/Data/Images/*jpg
+**/Data/Images/*png
+**/Data/Images/*tiff
 
 
 # Byte-compiled / optimized / DLL files
