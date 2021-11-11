@@ -6,7 +6,7 @@
 *.tiff
 
 #Ignore Sudi's weird python files
-._*
+\._*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
