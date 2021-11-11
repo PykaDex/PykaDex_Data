@@ -10,7 +10,6 @@ from imgaug import augmenters as iaa
 import numpy as np
 import os
 from PIL import Image
-from PykaDex.Python_General.config import *
 
 def transparency_checker(image):
     img = Image.open(image, 'r')
@@ -118,7 +117,9 @@ def augment_folder(folder_loc,aug_loc,N):
     """
 
     for dirpath, dirs, files in os.walk(source_loc):  
+        #sprint(dirs)
         for filename in files:
+            #print(filename)
 
             sub_dirs = dirpath[len(source_loc):]
             if filename[0] == '.':
@@ -127,6 +128,7 @@ def augment_folder(folder_loc,aug_loc,N):
 
             image_loc = os.path.join(dirpath,filename)
             aug_loc_ = os.path.join(aug_loc,sub_dirs)
+            #print(image_loc)
            
 
             #try:
@@ -142,15 +144,16 @@ def augment_folder(folder_loc,aug_loc,N):
 print('starting...')
 
 # source dir containg images to be augmented
-source_loc = path_to_training_data+'Pokemon_source_images/'
+path_to_training_data = 'Data/Images/'
+source_loc = path_to_training_data+'GenX/'
 
 # dir for augmented images to be placed (file structure will be kept i.e augmented/bublsaur/image,jpg)
-aug_loc = path_to_training_data+'Augmented_images/'
+aug_loc = path_to_training_data+'GenX_Augmented/'
 
 # dir containg bg images for transparent pokemon
 bg_folder = path_to_training_data+'backgrounds/'
 
 # dir for combined transparent images with new backgrrounds
-comb_folder = path_to_training_data+'combined/'
+comb_folder = path_to_training_data+'GenX_BGswap/'
 augment_folder(source_loc,aug_loc,100)
 print('finished.')
