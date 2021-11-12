@@ -61,10 +61,11 @@ class Pokemon():
                         print(path)
                     else:
                         pass
-                    print(np.eye(len(self.pokemon))[self.LABELS[label]])
+                    #print(np.eye(len(self.pokemon))[self.LABELS[label]])
                     training_data.append([np.array(img), np.eye(len(self.pokemon))[self.LABELS[label]]]) # Training data has both the numpy array of the image and the associated label of the image appended 
 
                 except Exception as e:
+                    print('uhoh')
                     pass
                 
                 counts[click] += 1 
