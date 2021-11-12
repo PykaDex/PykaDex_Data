@@ -52,23 +52,24 @@ def make_training_data(image_data):
 
         counts = [0]*len(dir_data['data'])
         click = 0
-        for pokemon in tqdm(dir_data['data']):
-            for image in os.path.join(dir_data['dir_name'],pokemon['name']):
-                try:
-                    path = image['path']
-                    img = cv2.imread(path)
-                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # It makes sure that cv2 reads images as RGB instead of the default BGR
-                    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+        for image in tqdm(dir_data['data']):
+            try:
+                path = image['path']
+               # print(image)
+                img = cv2.imread(path)
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # It makes sure that cv2 reads images as RGB instead of the default BGR
+                img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
 
-                    if img.shape == (IMG_SIZE,IMG_SIZE): #This was written to check for any grayscale images (single channel images)
-                        print(path)
-                    else:
-                        pass                    
+                if img.shape == (IMG_SIZE,IMG_SIZE): #This was written to check for any grayscale images (single channel images)
+                    print(path)
+                else:
+                    pass                    
+                        
+                training_data.append([np.array(img), np.eye(len(counts))[click]]) # Training data has both the numpy array of the image and the associated label of the image appended 
 
-                        training_data.append([np.array(img), np.eye(len(counts))[click]]) # Training data has both the numpy array of the image and the associated label of the image appended 
-
-                except Exception as e:
-                    pass
+            except Exception as e:
+                print('uhoh')
+                pass
             
             counts[click] += 1 
 
