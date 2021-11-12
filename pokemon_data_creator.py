@@ -8,7 +8,7 @@ from config import *
 
 REBUILD_DATA = True
 
-
+data_dir = image_dir+'GenX/'
 class Pokemon():
 
     IMG_SIZE = 80 # Size that you want the image to be
@@ -61,7 +61,7 @@ class Pokemon():
                         print(path)
                     else:
                         pass
-
+                    print(np.eye(len(self.pokemon))[self.LABELS[label]])
                     training_data.append([np.array(img), np.eye(len(self.pokemon))[self.LABELS[label]]]) # Training data has both the numpy array of the image and the associated label of the image appended 
 
                 except Exception as e:

@@ -155,5 +155,8 @@ bg_folder = path_to_training_data+'backgrounds/'
 
 # dir for combined transparent images with new backgrrounds
 comb_folder = path_to_training_data+'GenX_BGswap/'
-augment_folder(source_loc,aug_loc,100)
+
+#temporarily set number of augmentations per image to 1 to test npy data creating
+N=1
+augment_folder(source_loc,aug_loc,N)
 print('finished.')

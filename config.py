@@ -1,2 +1,2 @@
-data_dir = "Data/Images/GenX"
-model_directory = "Data/numpy_files"
+image_dir = "Data/Images/"
+model_directory = "Data/numpy_files/"
