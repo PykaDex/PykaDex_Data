@@ -24,16 +24,19 @@ def data_structure():
         dir_data = []
 
         # get each pokemon name
+        pokemon_names = os.listdir(os.path.join(image_dir,dir_name))
         for pokemon_name in os.listdir(os.path.join(image_dir,dir_name)):
 
             # get each image
             for image in os.listdir(os.path.join(image_dir,dir_name,pokemon_name)):
+                cheap_label_fix = ['Bulbasaur','Charmander','Squirtle']
 
                 # create a dictionary of each image contiang its info
                 image_info = {
                 'path':os.path.join(image_dir,dir_name,pokemon_name,image),
                 'name':pokemon_name,
                 'augmented':dir_name[-9:]=='Augmented',
+                'label':np.eye(len(pokemon_names))[pokemon_names.index(pokemon_name)]
                 }
                 dir_data.append(image_info)
 
@@ -44,8 +47,6 @@ def data_structure():
 def make_training_data(image_data):
     """
     """
-
-    cheap_label_fix = ['Bulbasaur','Charmander','Squirtle']
 
     training_data = []
     
@@ -67,7 +68,7 @@ def make_training_data(image_data):
                 else:
                     pass                    
                         
-                training_data.append([np.array(img), np.eye(len(cheap_label_fix))[cheap_label_fix.index(image['name'])]]) # Training data has both the numpy array of the image and the associated label of the image appended 
+                training_data.append([np.array(img), image['label']]) # Training data has both the numpy array of the image and the associated label of the image appended 
 
             except Exception as e:
                 #print('uhoh')

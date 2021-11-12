@@ -1,3 +1,6 @@
+#ignore large npy data files
+*.npy
+
 # ignore raw data images
 # will fix to include assets soon 
 *.jpeg
