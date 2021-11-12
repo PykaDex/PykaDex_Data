@@ -45,6 +45,8 @@ def make_training_data(image_data):
     """
     """
 
+    cheap_label_fix = ['Bulbasaur','Charmander','Squirtle']
+
     training_data = []
     
     for dir_data in image_data:
@@ -65,10 +67,10 @@ def make_training_data(image_data):
                 else:
                     pass                    
                         
-                training_data.append([np.array(img), np.eye(len(counts))[click]]) # Training data has both the numpy array of the image and the associated label of the image appended 
+                training_data.append([np.array(img), np.eye(len(cheap_label_fix))[cheap_label_fix.index(image['name'])]]) # Training data has both the numpy array of the image and the associated label of the image appended 
 
             except Exception as e:
-                print('uhoh')
+                #print('uhoh')
                 pass
             
             counts[click] += 1 
