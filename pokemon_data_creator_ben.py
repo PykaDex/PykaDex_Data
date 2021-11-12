@@ -41,17 +41,12 @@ def data_structure():
 
     return image_data
 
-# sort dict by name so can load a 
-# newlist = sorted(list_to_be_sorted, key=lambda d: d['name']) 
-# pokemon.sort()
-# print(len(pokemon))
-
-
 def make_training_data(image_data):
+    """
+    """
 
     training_data = []
     
-
     for dir_data in image_data:
         print(f"Fetching {dir_data['dir_name']}'s images")
 
@@ -68,9 +63,7 @@ def make_training_data(image_data):
                     if img.shape == (IMG_SIZE,IMG_SIZE): #This was written to check for any grayscale images (single channel images)
                         print(path)
                     else:
-                        pass
-
-                    training_data.append([np.array(img), np.eye(counts)[click]]) # Training data has both the numpy array of the image and the associated label of the image appended 
+                        pass                    training_data.append([np.array(img), np.eye(len(counts))[click]]) # Training data has both the numpy array of the image and the associated label of the image appended 
 
                 except Exception as e:
                     pass
