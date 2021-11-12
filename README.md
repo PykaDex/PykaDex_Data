@@ -1,2 +1,2 @@
 # PykaDex_Data
-All things data
+PykaDex repository for data formating and augmentation
