@@ -21,6 +21,8 @@ def data_structure():
         if dir_name in dirs_to_ignore:
             continue
 
+        dir_data = []
+
         # get each pokemon name
         for pokemon_name in os.listdir(os.path.join(image_dir,dir_name)):
 
@@ -33,9 +35,9 @@ def data_structure():
                 'name':pokemon_name,
                 'augmented':dir_name[-9:]=='Augmented',
                 }
+                dir_data.append(image_info)
 
-                dir_data = {'dir_name': dir_name,'data' :image_info}
-        image_data.append(dir_data)
+        image_data.append({'dir_name': dir_name,'data' :dir_data})
 
     return image_data
 
@@ -52,31 +54,32 @@ def make_training_data(image_data):
 
     for dir_data in image_data:
         print(f"Fetching {dir_data['dir_name']}'s images")
+
         counts = [0]*len(dir_data['data'])
         click = 0
+        for pokemon in tqdm(dir_data['data']):
+            for image in os.path.join(dir_data['dir_name'],pokemon['name']):
+                try:
+                    path = image['path']
+                    img = cv2.imread(path)
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # It makes sure that cv2 reads images as RGB instead of the default BGR
+                    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
 
-        for image in tqdm(dir_data['data']):
-            try:
-                path = image['path']
-                img = cv2.imread(path)
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # It makes sure that cv2 reads images as RGB instead of the default BGR
-                img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+                    if img.shape == (IMG_SIZE,IMG_SIZE): #This was written to check for any grayscale images (single channel images)
+                        print(path)
+                    else:
+                        pass
 
-                if img.shape == (IMG_SIZE,IMG_SIZE): #This was written to check for any grayscale images (single channel images)
-                    print(path)
-                else:
+                    training_data.append([np.array(img), np.eye(counts)[click]]) # Training data has both the numpy array of the image and the associated label of the image appended 
+
+                except Exception as e:
                     pass
-
-                training_data.append([np.array(img), np.eye(len(pokemon))[LABELS[label]]]) # Training data has both the numpy array of the image and the associated label of the image appended 
-
-            except Exception as e:
-                pass
             
             counts[click] += 1 
 
         click += 1
 
-        print(counts)
+        #print(counts)
         np.random.shuffle(training_data)
 
         current_folder_name = dir_data['dir_name']
@@ -87,6 +90,7 @@ def make_training_data(image_data):
             np.save(save_path, training_data)
         if os.path.exists(model_directory):
             np.save(save_path, training_data)
+            print(f'data saved to {save_path}')
 
 #############################################################
 
