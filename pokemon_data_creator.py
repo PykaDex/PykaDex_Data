@@ -92,5 +92,5 @@ def save_training_data(training_data, data_dir, numpy_files_directory, IMG_SIZE)
 IMG_SIZE = 80
 
 pokemon, LABELS = make_pokemon_dictionary()
-#training_data =make_training_data(pokemon, LABELS, IMG_SIZE)
-#save_training_data(training_data, data_dir, "Data/numpy_files", IMG_SIZE)
+training_data =make_training_data(pokemon, LABELS, IMG_SIZE)
+save_training_data(training_data, data_dir, "Data/numpy_files", IMG_SIZE)
