@@ -11,9 +11,15 @@ data_dir = image_dir+'GenX/'
 
 def make_pokemon_dictionary():
 
-    pokemon = os.listdir(data_dir) # Creating a list with the names of Pokemon which are taken from the name of the folders
-    pokemon.sort()
-    
+    dirs_to_ignore = ['backgrounds','README.md', ".DS_Store", "._.DS_Store"]
+    pokemon = [] 
+    for dirs in os.listdir(data_dir):
+        if dirs in dirs_to_ignore:
+            continue
+        else:
+            pokemon.append(dirs)
+            pokemon.sort()
+    print(pokemon)
 
     directories = [] # List of directories for each pokemon folder
     LABELS = {} # Dictionary where the directories of each pokemon and their label will be stored
@@ -83,16 +89,8 @@ def save_training_data(training_data, data_dir, numpy_files_directory, IMG_SIZE)
 
 #########################################################################
 
-
-if os.path.exists(f"{data_dir}/.DS_Store"): # This is mainly for mac user. It removes hidden folders within the images file
-    shutil.rmtree(f"{data_dir}/.DS_Store")
-if os.path.exists(f"{data_dir}/._.DS_Store"):
-    shutil.rmtree(f"{data_dir}/._.DS_Store")
-else:
-    pass
-
 IMG_SIZE = 80
 
 pokemon, LABELS = make_pokemon_dictionary()
-training_data =make_training_data(pokemon, LABELS, IMG_SIZE)
-save_training_data(training_data, data_dir, "Data/numpy_files", IMG_SIZE)
+#training_data =make_training_data(pokemon, LABELS, IMG_SIZE)
+#save_training_data(training_data, data_dir, "Data/numpy_files", IMG_SIZE)
