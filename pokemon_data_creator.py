@@ -7,9 +7,25 @@ import shutil
 from config import *
 
 
-data_dir = image_dir+'GenX/'
+def make_pokemon_dictionary(data_dir):
+    ''' 
+        Parameters
+        ---------
+        1 parameter
 
-def make_pokemon_dictionary():
+        object: string 
+        Directory of of directories with images. Has to be a string
+
+        Returns
+        ---------
+        2 objects
+
+        object: list
+        List of directory names 
+
+        object: dictionary
+        dictionary with directories with array labels
+    '''
 
     dirs_to_ignore = ['backgrounds','README.md', ".DS_Store", "._.DS_Store"]
     pokemon = [] 
@@ -19,7 +35,6 @@ def make_pokemon_dictionary():
         else:
             pokemon.append(dirs)
             pokemon.sort()
-    print(pokemon)
 
     directories = [] # List of directories for each pokemon folder
     LABELS = {} # Dictionary where the directories of each pokemon and their label will be stored
@@ -35,6 +50,27 @@ def make_pokemon_dictionary():
 
 
 def make_training_data(pokemon, LABELS, IMG_SIZE):
+    ''' 
+        Parameters
+        ---------
+        3 parameter
+
+        object: list
+        List of directory names 
+
+        object: dictionary
+        dictionary with directories with array labels
+
+        object: Integer 
+        Size, in pixels, that all images will be resized as
+
+        Returns
+        ---------
+        1 object
+
+        object: list of arrays
+        List of numpy arrays with all the images and numpy arrays with the corresponding labels
+    '''
 
     training_data = []
     counts = [0]*len(pokemon)
@@ -59,7 +95,6 @@ def make_training_data(pokemon, LABELS, IMG_SIZE):
                 counts[click] += 1 
 
             except Exception as e:
-                #print('uhoh')
                 pass   
 
         click += 1
@@ -75,22 +110,44 @@ def make_training_data(pokemon, LABELS, IMG_SIZE):
 
     
 def save_training_data(training_data, data_dir, numpy_files_directory, IMG_SIZE):
+    ''' 
+        Parameters
+        ---------
+        4 parameter
+
+        object: list of arrays
+        List of numpy arrays with shape (-1,2)
+
+        object: string 
+        Directory of of directories with images. Has to be a string
+
+        object: string
+        Name of directory were numpy files will be saved
+
+        object: integer
+        Size, in pixels, that all images will be resized as
+
+        Returns
+        ---------
+        Numpy file with training_data
+    '''
 
     current_folder_name = os.path.basename(os.path.normpath(data_dir))
     data_save_name = f"Pokemon_Data_Colour_{current_folder_name}_{IMG_SIZE}.npy" 
 
     save_path = os.path.join(numpy_files_directory, data_save_name) # Directory path where numpy file will be saved in 
 
-    if not os.path.exists(model_directory): # Saving the numpy file in preferred directory
-        os.makedirs(model_directory)
+    if not os.path.exists(numpy_files_directory): # Saving the numpy file in preferred directory
+        os.makedirs(numpy_files_directory)
         np.save(save_path, training_data)
-    if os.path.exists(model_directory):
+    if os.path.exists(numpy_files_directory):
         np.save(save_path, training_data)
 
 #########################################################################
 
 IMG_SIZE = 80
+data_dir = image_dir+'GenX/'
 
-pokemon, LABELS = make_pokemon_dictionary()
+pokemon, LABELS = make_pokemon_dictionary(data_dir)
 training_data =make_training_data(pokemon, LABELS, IMG_SIZE)
 save_training_data(training_data, data_dir, "Data/numpy_files", IMG_SIZE)
