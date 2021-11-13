@@ -2,11 +2,11 @@
 *.npy
 
 # ignore raw data images
-# will fix to include assets soon 
 *.jpeg
 *.jpg
 *.png
 *.tiff
+!assets/*.png
 
 #Ignore Sudi's weird python files
 ._*
